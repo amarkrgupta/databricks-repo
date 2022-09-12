@@ -105,7 +105,7 @@ WHEN NOT MATCHED AND b.delicious = true THEN
 -- COMMAND ----------
 
 -- TODO
-<FILL-IN>
+DESCRIBE HISTORY beans;
 
 -- COMMAND ----------
 
@@ -171,7 +171,7 @@ SELECT * FROM beans
 
 -- TODO
 CREATE OR REPLACE TEMP VIEW pre_delete_vw AS
-<FILL-IN>
+SELECT * FROM beans VERSION AS OF 4
 
 -- COMMAND ----------
 
@@ -205,7 +205,7 @@ SELECT * FROM pre_delete_vw
 -- COMMAND ----------
 
 -- TODO
-<FILL-IN>
+RESTORE TABLE beans TO VERSION AS OF 5
 
 -- COMMAND ----------
 
@@ -239,8 +239,8 @@ DESCRIBE HISTORY beans
 
 -- COMMAND ----------
 
--- TODO
-<FILL-IN>
+OPTIMIZE beans
+ZORDER BY name
 
 -- COMMAND ----------
 
@@ -263,6 +263,7 @@ DESCRIBE DETAIL beans
 -- COMMAND ----------
 
 -- MAGIC %python
+-- MAGIC --This will ignore the 7 day retention check.
 -- MAGIC last_tx = spark.sql("DESCRIBE HISTORY beans").first()
 -- MAGIC assert last_tx["operation"] == "OPTIMIZE", "Make sure you used the `OPTIMIZE` command to perform file compaction"
 -- MAGIC assert last_tx["operationParameters"]["zOrderBy"] == '["name"]', "Use `ZORDER BY name` with your optimize command to index your table"
@@ -288,7 +289,7 @@ DESCRIBE DETAIL beans
 
 -- COMMAND ----------
 
-SET spark.databricks.delta.retentionDurationCheck.enabled = false;
+SET spark.databricks.delta.retentionDurationCheck.enabled = false; 
 SET spark.databricks.delta.vacuum.logging.enabled = true;
 
 -- COMMAND ----------
@@ -364,7 +365,7 @@ SELECT * FROM beans
 
 -- COMMAND ----------
 
--- SELECT * FROM beans@v1
+SELECT * FROM beans@v1
 
 -- COMMAND ----------
 
