@@ -256,7 +256,7 @@ DROP TABLE managed_table_in_db_with_custom_location;
 -- MAGIC %md
 -- MAGIC 
 -- MAGIC  
--- MAGIC ## Tables
+-- MAGIC ## External Tables
 -- MAGIC We will create an external (unmanaged) table from sample data. 
 -- MAGIC 
 -- MAGIC The data we are going to use are in CSV format. We want to create a Delta table with a **`LOCATION`** provided in the directory of our choice.
